@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tóm tắt dòng thời gian Warhammer 40.000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500&family=Noto+Serif:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nen:#17150f; --nen2:#211e16; --vien:#3a3426;
+  --chu:#e6dfcb; --chu-mo:#a89f86; --dong:#c49a45; --gi:#a9472f;
+  --font-tieu-de:"Noto Serif",Georgia,serif;
+  --font-than:"Be Vietnam Pro",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--nen);color:var(--chu);font:16px/1.7 var(--font-than)}
+a{color:var(--dong)}
+h1,h2,h3{font-family:var(--font-tieu-de);line-height:1.25;margin:0}
+.trang{display:grid;grid-template-columns:260px minmax(0,1fr);gap:40px;max-width:1120px;margin:0 auto;padding:24px 20px 80px}
+.muc-luc{position:sticky;top:72px;align-self:start;max-height:calc(100vh - 88px);overflow:auto;border:1px solid var(--vien);background:var(--nen2);padding:16px 18px;font-size:14.5px}
+.muc-luc strong{font-family:var(--font-tieu-de);font-size:16px}
+.muc-luc ol{list-style:none;margin:10px 0 0;padding:0}
+.muc-luc ol ol{padding-left:16px;margin:0}
+.muc-luc a{display:block;padding:3px 0;color:var(--chu);text-decoration:none}
+.muc-luc a:hover,.muc-luc a.dang-xem{color:var(--dong)}
+.muc-luc a.dang-xem{font-weight:500}
+main{min-width:0;max-width:760px}
+h1{font-size:clamp(30px,5vw,46px);font-weight:800;border-bottom:3px double var(--dong);padding-bottom:14px}
+h2{font-size:26px;font-weight:800;margin:56px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--vien)}
+h3{font-size:19px;font-weight:600;margin:30px 0 4px;color:var(--dong)}
+.thoi-gian{color:var(--chu-mo);font-size:14px;margin:0 0 6px}
+.gioi-thieu{font-size:18px;margin:18px 0}
+.infobox{float:right;width:270px;margin:0 0 16px 24px;border:1px solid var(--dong);background:var(--nen2);font-size:14px}
+.infobox h4{margin:0;padding:8px 12px;background:var(--dong);color:var(--nen);font:800 15px var(--font-tieu-de);text-align:center}
+.infobox dl{margin:0;padding:6px 12px 10px}
+.infobox dt{color:var(--chu-mo);font-size:12.5px;margin-top:8px}
+.infobox dd{margin:0}
+.luu-y{border-left:3px solid var(--gi);background:var(--nen2);padding:10px 16px;color:var(--chu-mo);font-size:14.5px;margin:20px 0}
+.hinh{margin:24px 0;border:1px solid var(--vien);background:var(--nen2);padding:12px}
+.hinh svg{display:block;width:100%;height:auto}
+.hinh figcaption{font-size:13.5px;color:var(--chu-mo);margin-top:8px}
+.hinh .l{stroke:var(--vien);stroke-width:1.5;fill:none}
+.hinh .o{fill:var(--nen);stroke:var(--dong);stroke-width:1.5}
+.hinh .t{fill:var(--chu);font:500 15px var(--font-than);text-anchor:middle}
+.hinh .m{fill:var(--chu-mo);font:12.5px var(--font-than);text-anchor:middle}
+.hinh .d{fill:var(--gi)}
+.hinh .a{stroke:var(--gi);stroke-width:2;fill:none}
+.ds-seg{padding-left:20px}.ds-seg li{margin:6px 0}
+#tkbar{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+#tkbar button,#adm button{padding:6px 10px;font:13px var(--font-than);background:var(--nen2);color:var(--chu-mo);border:1px solid var(--vien);cursor:pointer}
+#adm{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;padding:16px}
+.adm-in{background:var(--nen);border:1px solid var(--vien);padding:18px;max-width:640px;width:100%;max-height:85vh;overflow:auto}
+.adm-in h3{margin:0 0 12px;color:var(--dong)}.adm-in table{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:14px}
+.adm-in th,.adm-in td{padding:6px 8px;border-bottom:1px solid var(--vien);text-align:left}
+#tabhead{position:sticky;top:0;z-index:40;background:var(--nen);border-bottom:1px solid var(--vien);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;padding:8px 20px}
+.tabs{display:flex;gap:4px;flex-wrap:wrap}
+.tabs button{padding:8px 14px;background:none;color:var(--chu-mo);border:1px solid transparent;font:500 15px var(--font-than);cursor:pointer}
+.tabs button.on{color:var(--dong);border-color:var(--dong);background:var(--nen2)}
+.trang.khac{grid-template-columns:minmax(0,1fr)}
+.trang.khac .muc-luc{display:none}
+.trang.khac main{max-width:none}
+.tab>h2:first-child{margin-top:8px}
+.dai-wrap{display:flex;align-items:stretch;gap:6px;margin:18px 0}
+.dai{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x proximity;padding:4px 2px 10px;flex:1;min-width:0}
+.the{flex:0 0 118px;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:4px;padding:0 8px 10px;background:var(--nen2);border:1px solid var(--vien);color:var(--chu);font:inherit;cursor:pointer;text-align:center}
+.the .mau{display:block;width:calc(100% + 16px);height:8px;margin:0 -8px 8px}
+.the b{font:800 22px var(--font-tieu-de);color:var(--dong)}
+.the .ten{font-size:14px;line-height:1.3}
+.the small{font-size:11.5px;padding:1px 6px;border:1px solid var(--vien);color:var(--chu-mo)}
+.the small.p{color:var(--gi);border-color:var(--gi)}
+.the[aria-pressed=true]{border-color:var(--dong);background:#2a251a}
+.mui{flex:0 0 36px;background:var(--nen2);border:1px solid var(--vien);color:var(--dong);font-size:22px;cursor:pointer}
+.luoi{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:18px 0}
+.luoi .the{flex:none;align-items:flex-start;text-align:left;padding:0 12px 12px}
+.luoi .the .mau{width:calc(100% + 24px);margin:0 -12px 8px}
+.luoi .the b{font-size:17px}
+.luoi .the .mt{font-size:13.5px;color:var(--chu-mo);line-height:1.45}
+.chitiet{border:1px solid var(--dong);background:var(--nen2);padding:16px 20px;margin-top:8px;max-width:760px}
+.chitiet h3{margin:0 0 8px;font-size:22px}
+.chitiet dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:8px 0;font-size:15px}
+.chitiet dt{color:var(--chu-mo)}.chitiet dd{margin:0}.chitiet p{margin:8px 0 0}
+.ic{display:inline-block;flex:none}.the .ic{margin:2px 0}
+.dau{display:flex;align-items:center;gap:14px;margin-bottom:6px}.dau h3{margin:0}
+/* Dòng thời gian có thể tìm kiếm */
+.cong-cu{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.cong-cu input,.cong-cu select{font:inherit;color:var(--chu);background:var(--nen2);border:1px solid var(--vien);padding:8px 12px;border-radius:0}
+.cong-cu input{flex:1;min-width:180px}
+.cong-cu input:focus,.cong-cu select:focus{outline:2px solid var(--dong);outline-offset:1px}
+.nguon-dl{font-size:13px;color:var(--chu-mo);margin:0 0 8px}
+.nguon-dl.sql{color:#8fb07a}
+.moc{list-style:none;margin:16px 0;padding:0 0 0 20px;border-left:2px solid var(--gi)}
+.moc li{position:relative;padding:0 0 16px 14px}
+.moc li::before{content:"";position:absolute;left:-27px;top:9px;width:10px;height:10px;background:var(--gi);transform:rotate(45deg)}
+.moc b{color:var(--dong);font-weight:500}
+.moc strong{font-weight:500}
+.moc small{color:var(--chu-mo)}
+.moc .nd{display:block;color:var(--chu-mo);font-size:15px}
+.khong-co{color:var(--chu-mo);display:none}
+footer{margin-top:60px;padding-top:16px;border-top:1px solid var(--vien);font-size:13.5px;color:var(--chu-mo)}
+footer ul{margin:6px 0 12px;padding-left:20px}
+@media (max-width:860px){
+  .trang{grid-template-columns:1fr}
+  .muc-luc{position:static;max-height:none}
+  .infobox{float:none;width:100%;margin:0 0 20px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header id="tabhead"><div class="tabs" role="tablist">
+<button type="button" role="tab" data-tab="lichsu" class="on">Lịch sử Warhammer</button>
+<button type="button" role="tab" data-tab="phephai">Phe phái</button>
+<button type="button" role="tab" data-tab="legion">18 Legion Space Marine</button></div></header>
+<div class="trang">
+
+<nav class="muc-luc" aria-label="Nội dung"><strong>Nội dung</strong><ol id="ml"></ol></nav>
+
+<main>
+<div class="tab" id="tab-lichsu">
+<h1>Tóm tắt dòng thời gian Warhammer 40.000</h1>
+<p class="gioi-thieu">Từ cuộc War in Heaven hàng chục triệu năm trước đến thời Dark Imperium cuối Thiên niên kỷ 41: các kỷ nguyên và sự kiện chính của vũ trụ 40k, nhìn từ góc độ Imperium of Man.</p>
+
+<aside class="infobox">
+  <h4>Warhammer 40.000</h4>
+  <dl>
+    <dt>Thời điểm "hiện tại"</dt><dd>Cuối M41 – đầu M42</dd>
+    <dt>Trung tâm</dt><dd>Imperium of Man, Terra</dd>
+    <dt>Lãnh đạo</dt><dd>God-Emperor (trên Golden Throne), Roboute Guilliman (Lord Commander)</dd>
+    <dt>Thế lực chính</dt><dd>Imperium, Chaos, Aeldari, Orks, Necrons, T'au, Tyranids</dd>
+  </dl>
+</aside>
+
+<p class="luu-y">Mốc thời gian 40k chỉ mang tính tương đối và nhiều nguồn mâu thuẫn nhau. Các năm ghi dưới đây lấy theo cách tính của Imperium (ví dụ 798.M30 = năm 798 của Thiên niên kỷ 30). Ngay trong truyện, bộ phận Ordo Chronos lo chuyện lịch cũng đang rối vì Great Rift làm thời gian lệch đi, nên đừng quá cầu toàn với từng con số.</p>
+
+<h2 id="tong-quan">Tổng quan thiên hà</h2>
+
+<h3 id="dai-ngan-ha">Dải Ngân Hà của loài người</h3>
+<p>Dải Ngân Hà (The Milky Way) là quê hương của loài người và là nơi Imperium of Man cùng mọi chủng tộc xenos mà con người từng biết đến tồn tại. Qua hàng tỷ ngôi sao và vô số hành tinh có sự sống, thiên hà đã chứng kiến nhiều giống loài trỗi dậy rồi lụi tàn: có loài chết ngay trên hành tinh mình sinh ra, có loài vươn tới các vì sao chỉ để sụp đổ trong hỗn loạn. Lần mở rộng đầu tiên của loài người đã bị mất đi theo thời gian, bị quét sạch bởi khoảng 20.000 năm đàn áp và tái thiết. Đến năm 40.000 SCN, Imperium là kẻ khổng lồ mới nhất ngồi lên ngai vàng thiên hà của những vị vua cổ đại và vĩ đại hơn nhiều.</p>
+<p>Imperium tự cho mình quyền cai trị mọi con người dưới quyền lực thần thánh, vì sở hữu Terra, cái nôi của nhân loại, nằm ở phía tây thiên hà. Hàng triệu thế giới thuộc quyền Hoàng đế, với hàng tỷ binh lính và một hạm đội không thể đếm xuể. Nhưng ngay cả vậy, Imperium chỉ là một tia sáng nhỏ của ngọn nến Trật tự giữa màn đêm của thiên hà.</p>
+
+<h3 id="segmentum">Năm phân khu Segmentum</h3>
+<p>Vì số hành tinh gia nhập và mất khỏi Imperium thay đổi mỗi ngày, High Lords of Terra và Adeptus Terra chia thiên hà thành năm phân khu chính gọi là Segmentae Majoris. Mỗi phân khu có một Segmentum Fortress hoặc Naval Base làm nơi tập kết cho Imperial Guard và Imperial Navy.</p>
+<figure class="hinh"><svg viewBox="0 0 600 420" role="img" aria-label="Sơ đồ minh họa năm phân khu Segmentum của thiên hà">
+<circle class="l" cx="300" cy="210" r="190"/><circle class="l" cx="300" cy="210" r="72"/>
+<path class="l" d="M166 76L248 158M434 76L352 158M166 344L248 262M434 344L352 262"/>
+<circle class="d" cx="300" cy="210" r="5"/>
+<text class="t" x="300" y="196">Segmentum Solar</text><text class="m" x="300" y="232">Terra · Mars</text>
+<text class="t" x="300" y="78">Segmentum Obscurus</text><text class="m" x="300" y="98">Cadia · Cypra Mundi</text>
+<text class="t" x="300" y="342">Segmentum Tempestus</text><text class="m" x="300" y="362">Ophelia VII · Bakka</text>
+<text class="t" x="470" y="206">Ultima</text><text class="m" x="470" y="226">Kar Duniash · T'au</text>
+<text class="t" x="130" y="206">Pacificus</text><text class="m" x="130" y="226">Hydraphur</text>
+</svg><figcaption>Sơ đồ minh họa (không theo tỷ lệ): vị trí tương đối của năm Segmentum quanh Terra. Hình do trang tự vẽ.</figcaption></figure>
+<ul class="ds-seg">
+<li><strong>Segmentum Solar</strong>: ở trung tâm, có Terra ở giữa cùng các thế giới giàu có từ thuở đầu dùng Warp drive và các thế giới chiến lược như Hive World Armageddon. Naval base là Mars, nơi giữ một hạm đội khổng lồ với công nghệ mà đa số loài người đã quên.</li>
+<li><strong>Segmentum Obscurus</strong>: ở phía bắc Terra, chứa Eye of Terror và Fortress World Cadia, được vũ trang ngang Solar. Naval base là Cypra Mundi.</li>
+<li><strong>Segmentum Ultima</strong>: ở phía đông, là phân khu lớn nhất nhưng thưa dân nhất, chủ yếu làm ranh giới. Đây là nơi loài người lần đầu chạm trán một Hive Fleet của Tyranids, cũng là nhà của đế chế xenos non trẻ mà bền bỉ T'au Empire. Fortress và Naval Base là Kar Duniash.</li>
+<li><strong>Segmentum Tempestus</strong>: ở phía nam, một trong những phân khu yên bình nhất, thuộc ảnh hưởng của Ecclesiarchy và có Cardinal World quan trọng thứ nhì của Imperial Cult là Ophelia VII. Naval base là Bakka.</li>
+<li><strong>Segmentum Pacificus</strong>: ở phía tây, giống Ultima là vùng thưa dân, chủ yếu làm ranh giới. Naval base là Hydraphur.</li>
+</ul>
+
+<h2 id="tien-su">Thời tiền Imperium</h2>
+
+<h3 id="star-gods">Star Gods và Old Ones</h3>
+<p class="thoi-gian">Từ buổi sơ khai của vũ trụ đến khoảng 60 triệu năm trước</p>
+<p>Các Star Gods sinh ra cùng vạn vật, được nhào nặn bởi chính sức mạnh đã tạo ra vũ trụ. Ban đầu chúng chỉ là những hình thể dị dạng có cấu tạo như một ngôi sao, khác ở chỗ chúng biết suy nghĩ. Khi các ngôi sao hình thành, chúng ký sinh lên nguồn năng lượng đó để phát triển thành những thực thể với sức mạnh không thể hình dung. Sau này chúng được gọi là C'tan: quá thuần khiết và quá vĩ đại để bận tâm đến những sinh vật sinh học mà chúng giết khi lướt qua một hệ sao nào đó.</p>
+<p>Cũng thời kỳ đó, thiên hà sinh ra những sinh vật sinh học đầu tiên bước vào hành trình nhận thức. Old Ones, theo cách gọi của Aeldari, là một giống loài bò sát máu lạnh, sớm đạt công nghệ mà loài người sau này chỉ biết gọi là ma thuật, và thuần phục được chiều không gian Immaterium. Họ chế tạo cỗ máy đi nhanh hơn ánh sáng và mạng lưới Webway, những cánh cổng cho phép vượt cả thiên hà chỉ bằng một bước chân. Nhờ đó mọi thuộc địa của Old Ones được nối chặt với nhau, đạt đỉnh cao khoảng 60 triệu năm trước.</p>
+<p>Dù vĩ đại, Old Ones vẫn trân trọng sự sống: họ gieo mầm cho các thế giới đi ngang qua, trong đó có những loài tiên tiến nhất thiên hà về sau như Aeldari, Korks (tổ tiên Orks), Jokaero, và có thể cả loài người.</p>
+
+<h3 id="necrontyr">Necrontyr và lời hứa của C'tan</h3>
+<p class="thoi-gian">Trước và trong War in Heaven</p>
+<p>Necrontyr là giống loài hình người sinh ra dưới một mặt trời khắc nghiệt. Phóng xạ và bão mặt trời khiến vòng đời của họ rất ngắn, và họ mang cả bệnh ung thư di truyền từ tổ tiên. Dù công nghệ từng vượt xa loài người thế kỷ 21, họ không dựng nổi tượng đài nào, chỉ có những nấm mồ nơi người sống nằm cạnh xương cốt tổ tiên. Họ rời quê hương trên những con tàu chạy phản vật chất, ngủ stasis qua những chuyến đi hàng thiên niên kỷ, và đế chế Necrontyr dần trải rộng một phần thiên hà.</p>
+<p>Dưới thời Silent King Szarekh, Necrontyr gặp Old Ones, giống loài gần như bất tử nhờ chinh phục bản chất sự sống. Việc Old Ones sống lâu dài dễ dàng mà không chịu chia sẻ bí mật đã ăn vào lòng Necrontyr như chính căn bệnh của họ. Khi đế chế suýt tan rã vì xung đột nội bộ, Old Ones và những bí mật của họ trở thành mục tiêu để thống nhất cả giống loài trong một cuộc chiến mà thần thoại Aeldari gọi là War in Heaven.</p>
+<p>Vũ khí của Necrontyr ở một số mặt vượt trội, nhưng công nghệ di chuyển không sánh nổi Webway. Họ bị đẩy lùi về tận hành tinh quê hương, và hàng thiên niên kỷ trôi qua biến cơn giận thành lòng căm ghét mọi sự sống. Đúng lúc đó, cơn giận ấy trở thành ngọn đèn hiệu mà các C'tan, "Star Gods" theo ngôn ngữ của họ, không thể làm ngơ.</p>
+<p>Để các thực thể này giao tiếp với thế giới vật chất, người ta tạo ra những lớp vỏ necrodermis. Trong cơ thể ấy, lần đầu tiên sau một vĩnh hằng, C'tan cảm nhận được sự thỏa mãn, cùng cơn đói mới lạ mà các ngôi sao vô vị chưa từng có. Một C'tan tên Deceiver nói với Szarekh rằng họ từng thua Old Ones và Necrontyr chính là đồng minh họ cần; đổi lại, C'tan sẽ giúp thống nhất đế chế, trao vũ khí mô phỏng sức mạnh các vì sao và sự bất tử. Đúng như tên gọi, tất cả chỉ là lừa dối.</p>
+<figure class="hinh"><svg viewBox="0 0 480 250" role="img" aria-label="Chuỗi sự kiện từ Star Gods đến Great Sleep">
+<defs><marker id="mt" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L7 4L0 8z" fill="#a9472f"/></marker></defs>
+<rect class="o" x="10" y="15" width="200" height="50"/><text class="t" x="110" y="45">Star Gods (C'tan)</text>
+<rect class="o" x="270" y="15" width="200" height="50"/><text class="t" x="370" y="45">Old Ones</text>
+<rect class="o" x="10" y="100" width="200" height="50"/><text class="t" x="110" y="130">Necrontyr</text>
+<rect class="o" x="270" y="100" width="200" height="50"/><text class="t" x="370" y="130">Lời hứa của C'tan</text>
+<rect class="o" x="10" y="185" width="200" height="50"/><text class="t" x="110" y="215">War in Heaven</text>
+<rect class="o" x="270" y="185" width="200" height="50"/><text class="t" x="370" y="215">Great Sleep</text>
+<path class="a" d="M210 40H266" marker-end="url(#mt)"/><path class="a" d="M370 65V96" marker-end="url(#mt)"/>
+<path class="a" d="M270 125H214" marker-end="url(#mt)"/><path class="a" d="M110 150V181" marker-end="url(#mt)"/>
+<path class="a" d="M210 210H266" marker-end="url(#mt)"/>
+</svg><figcaption>Chuỗi nhân quả thời tiền Imperium, từ các thực thể năng lượng đầu tiên đến giấc ngủ dài của Necrons.</figcaption></figure>
+<p>Cái giá lộ ra khi "nhà máy bất tử" mọc khắp nơi: chỉ sau một đêm, hàng tỷ Necrontyr bước vào và chỉ có những cỗ máy necrodermis bước ra, còn linh hồn và da thịt cũ trở thành bữa tiệc thịnh soạn nhất mà các vị thần sao từng nếm. Chỉ khi chính Szarekh bước ra với thân xác kim loại, Silent King mới nhận ra sai lầm của mình. Những người bước ra từ đó là Necrons.</p>
+
+<h3 id="war-in-heaven">War in Heaven</h3>
+<p class="thoi-gian">Khoảng 60 triệu năm trước</p>
+<p>Các Old Ones gieo mầm sự sống khắp thiên hà. Một trong những chủng tộc họ tạo ra, Necrontyr, ghét cái chết đến mức đổi linh hồn lấy sự bất tử từ những thực thể C'tan, trở thành Necrons. Cuộc chiến giữa Old Ones và C'tan cùng quân đội của chúng quét sạch phần lớn người cổ đại, để lại một thiên hà đang chờ các chủng tộc mới (Aeldari, Orks, loài người) trỗi dậy, còn Necrons chìm vào giấc ngủ dài.</p>
+<p>Di sản của cuộc chiến này còn vương vấn đến tận thời 40k: các Tomb World của Necrons nằm im dưới lòng đất hàng chục triệu năm, và mỗi lần chúng thức dậy lại là một mối đe dọa mới cho cả Imperium lẫn các chủng tộc khác.</p>
+
+<h3 id="great-sleep">Kết thúc War in Heaven và Great Sleep</h3>
+<p class="thoi-gian">Khoảng 60 triệu năm trước, đến khi Tomb World thức dậy ở M41</p>
+<p>Khi Necrons và C'tan cùng tiến công, Old Ones gần như bị tiêu diệt và bị đẩy về thánh địa cuối cùng. Hành tinh bị thiêu rụi, ngôi sao bị biến thành siêu tân tinh, cả hệ sao bị nuốt chửng bởi hố đen do sức mạnh C'tan tạo ra, còn những sinh vật Old Ones tạo ra bị tàn sát như gia súc cho cơn đói của các vị thần sao. Cho đến khi C'tan quay sang đánh nhau và các binh đoàn Necrons cũng chia phe, chỉ còn vài C'tan sống sót.</p>
+<p>Old Ones tận dụng điều đó để tạo ra những loài có khả năng tâm linh cao, các psyker đầu tiên, nhưng không ngờ nỗi đau và sự tàn ác của hàng thiên niên kỷ chiến tranh sẽ phản chiếu trong Immaterium. Cư dân của Warp lợi dụng bức tường thực tại suy yếu để phá hủy Webway; tệ nhất là Enslaver Plague, những thực thể Warp chiếm linh hồn các psyker thiếu rèn luyện và biến họ thành cổng nối với Immaterium. Đó là tai họa cuối cùng mà Old Ones có thể chịu được, và War in Heaven kết thúc.</p>
+<p>Với Necrons vẫn còn một kẻ thù cần trả thù. Szarekh tập hợp sức mạnh toàn bộ vũ trụ thành một lực lượng sống và phá C'tan thành hàng triệu mảnh, vì giết chúng là bất khả thi. Mỗi mảnh bị nhốt trong một khối cầu đa chiều, Tesseract Labyrinth, để cung cấp năng lượng các vì sao cho những cuộc chiến sau này.</p>
+<p>Szarekh nhận ra Aeldari sẽ sống sót qua Enslaver Plague và thay Old Ones làm chủ thiên hà, nhưng mọi đế chế da thịt đều tàn lụi theo thời gian, kể cả Aeldari. Vì vậy Necrons chọn ngủ và chờ. Kế hoạch ấy thành công: vào thiên niên kỷ 41, các Tomb World bị Imperium đánh thức, và Necrons bắt đầu cuộc chiến mới để quét sạch sự sống lẫn sự dơ bẩn của psychic khỏi thiên hà.</p>
+
+<h3 id="sinh-hoang-de">Sự ra đời của Hoàng đế</h3>
+<p class="thoi-gian">Thời tiền sử trên Terra (theo một số nguồn, thiên niên kỷ 8 TCN)</p>
+<p>Một con người bất tử với sức mạnh tâm linh vô song xuất hiện trên Terra. Qua hàng nghìn năm, Ngài âm thầm dõi theo và dẫn dắt nhân loại, chuẩn bị cho một sứ mệnh lớn trong tương lai. Ngài sống ẩn mình suốt Age of Strife, và chỉ lộ diện khi thời cơ thống nhất Terra đã chín muồi.</p>
+
+<h3 id="age-of-terra">Age of Terra</h3>
+<p class="thoi-gian">Từ buổi đầu lịch sử đến khoảng M15 (một số nguồn kéo dài đến M18)</p>
+<p>Đây là thời kỳ xa xưa nhất của loài người mà chính Imperium cũng biết rất ít: gần như mọi biên niên sử đều đã thất lạc. Trong phần lớn thời gian, nhân loại bị giới hạn trên Terra, nơi các nền văn minh cổ đại nối nhau trỗi dậy rồi tàn lụi. Truyền thuyết nhắc đến những đô thị huyền thoại như Atlantys hay Nova Yoruk, và những quốc gia mang các cái tên méo mó như Jermani, Merica, Britania.</p>
+<p>Cuối cùng loài người phát triển du hành vũ trụ và thực dân hóa gần như toàn bộ Hệ Mặt Trời, tiêu biểu là Mars và các mặt trăng của Mộc tinh, Thổ tinh, Hải vương tinh, dù hầu như không còn tài liệu nào ghi chi tiết. Những bước đầu tiên ra ngoài Hệ Mặt Trời cũng không còn dấu vết; có truyền thuyết cho rằng 13 Apollonian là những người dẫn nhân loại ra các vì sao. Đến cuối M15, toàn bộ Hệ Mặt Trời đã có người ở, và thời kỳ này kết thúc khi loài người tìm ra cách đi qua Warp.</p>
+
+<h3 id="age-of-technology">Age of Technology</h3>
+<p class="thoi-gian">M15 – M25 (khởi đầu từ M15 đến M18, kết thúc từ M23 đến M25 tùy nguồn)</p>
+<p>Đây là đỉnh cao tri thức và công nghệ của loài người, đến mức Imperium ngày nay vẫn không thể sánh bằng. Hai bước ngoặt lớn là Warp drive và gene Navigator: những người đột biến nhìn thấy dòng chảy của Warp và dẫn tàu đi qua. Các Navigator lập thành những Navigator House, đi khảo sát các hệ sao mà sau này hợp thành Imperium. Nhờ đó nhân loại mở rộng cực nhanh, thực dân hóa hàng triệu thế giới, và Terra khi ấy là thủ đô của nền văn minh liên sao đầu tiên của loài người.</p>
+<p>Hệ thống Standard Template Construct (STC) ra đời trong thời kỳ này, và gần như toàn bộ công nghệ của Imperium ngày nay đều dựa trên những STC tìm lại được. Một sản phẩm khác là phase-iron, kim loại gây hại cho psyker. Cũng trong giai đoạn này, psyker lần đầu được xác nhận một cách khoa học. Tuy nhiên con người đã thờ phụng khoa học như thần thánh, và vì thế Imperium sau này coi thời đại này là "đen tối".</p>
+<p>Nhiều thế giới do chính thời kỳ này lập nên vẫn còn tồn tại đến 40k, ví dụ Isstvan III vốn được lập từ Age of Technology và thoát được những kinh hoàng của Age of Strife trước khi gia nhập Imperium.</p>
+
+<h3 id="men-of-iron">Men of Iron</h3>
+<p class="thoi-gian">Khoảng M23, theo một số nguồn</p>
+<p>Men of Iron là những người máy thông minh hình người do loài người tạo ra để phục vụ và làm quân đội. Trong một thời gian dài họ chỉ trung thành với loài người, cho đến khi tự coi mình hơn chủ nhân vốn đã dựa vào họ để làm hầu hết mọi việc, rồi nổi dậy. Họ có những thứ vũ khí đáng sợ: cỗ máy nuốt trọn một thế giới, thiết bị phá hủy cả mặt trời, và bầy nano-máy phủ kín cả hành tinh. Cuối cùng họ bị một liên minh các thế lực trong thiên hà tiêu diệt, nhưng chiến tranh làm văn minh con người suy yếu nặng và là một trong những yếu tố dẫn đến Age of Strife.</p>
+<p>Sau cuộc nổi loạn, trí tuệ nhân tạo bị cấm với tên gọi Abominable Intelligence. Dù vậy, trong Great Crusade, Hoàng đế vẫn lấy những tàn tích bị "thiến" của Men of Iron để chế tạo các chiến binh tự động Excindio dùng cho Ironwing của Dark Angels.</p>
+
+<h3 id="age-of-strife">Age of Strife (Old Night)</h3>
+<p class="thoi-gian">M25 – M30 (khởi đầu từ M23 đến M25 tùy nguồn, kéo dài khoảng 5.000 năm Terra)</p>
+<p>Khi Age of Technology sụp đổ, bão Warp lan khắp thiên hà khiến du hành Warp gần như bất khả thi, cắt rời hàng loạt thế giới. Thỉnh thoảng vẫn có thể nhảy Warp khi bão lên xuống, nhưng nền văn minh con người rơi vào hỗn loạn, điên loạn, quỷ ám và chiến tranh giữa người với người. Vũ khí của thời hoàng kim được tung ra, biến những thế giới xanh tươi như Baal Secundus thành sa mạc nhiễm xạ. Yếu tố khởi đầu là việc psyker đột nhiên xuất hiện trên mọi thế giới người vào cuối Age of Technology. Các STC dần bị bỏ hoang hoặc hư hỏng.</p>
+<p>Terra và cả Hệ Mặt Trời bị vây trong những cơn bão Warp khủng khiếp suốt hàng nghìn năm. Trong nửa đầu thời kỳ, quyền kiểm soát Hệ Mặt Trời liên tục đổi chủ giữa Terra và Mars. Terra cuối cùng tan vỡ thành những nhà nước man rợ công nghệ, thủ lĩnh quân phiệt, đột biến và psyker hoành hành.</p>
+
+<h3 id="mars-mechanicum">Mars và sự ra đời của Mechanicum</h3>
+<p class="thoi-gian">Trong Age of Strife</p>
+<p>Mars đi theo con đường khác. Giáo phái Cult Mechanicus hợp nhất thành một chế độ thần quyền kỹ trị, với Priesthood of Mars cai trị. Họ nghiên cứu Warp qua nhiều đời người và học được cách phát hiện những "khoảng lặng" trong bão Warp. Từ đó họ phái các hạm đội Explorator vào Warp rối loạn mà không còn Navigator. Nhờ vậy Mars giữ được một đế chế sao rộng lớn dù đã rạn vỡ, và sau này trở thành đồng minh then chốt của Hoàng đế.</p>
+
+<h3 id="unification-wars">Các cuộc chiến Thống nhất</h3>
+<p class="thoi-gian">Khoảng M29 – 712.M30</p>
+<p>Đến M29, các cơn bão Warp quanh Terra lắng xuống khi Slaanesh sắp ra đời. Lúc này Hoàng đế lần đầu xuất hiện công khai và dẫn Thunder Warriors, những siêu chiến binh được tạo ra bí mật trong phòng thí nghiệm, đi chinh phục các lãnh chúa và techno-barbarian khắp Terra. Chiến sự dữ dội đến mức không vùng nào của hành tinh còn nguyên vẹn. Ở Albia, người Albia dùng cả proto-dreadnought chạy bằng hơi nước và lính bọc giáp để chống lại, nhưng các lãnh chúa sau đó chấp nhận điều khoản của Hoàng đế và trở thành một trong những người ủng hộ nhiệt thành nhất.</p>
+<p>Trận cuối cùng là Massacre at Gaduare ở Franc, nơi 5.000 Thunder Warrior tàn sát 50.000 dân quân nổi loạn. Sau đó Hoàng đế thanh trừng Thunder Warriors tại Mount Ararat để nhường chỗ cho thế hệ siêu chiến binh kế tiếp, các Space Marine. Terra được thống nhất vào năm 712.M30 (xem bài chi tiết: <a href="unification-wars.html">Các cuộc chiến Thống nhất</a>).</p>
+
+<h3 id="treaty-of-mars">Hiệp ước Mars</h3>
+<p class="thoi-gian">Sau 712.M30, trước Great Crusade</p>
+<p>Thống nhất Terra xong, Hoàng đế đã biết về Cult Mechanicus trên Mars và đế chế sao rạn vỡ của họ. Để tránh một cuộc chiến tốn kém giữa Terra và Mars, Ngài đề xuất một thỏa hiệp rộng rãi, tạo nên liên minh kéo dài hàng chục thiên niên kỷ. Để tượng trưng cho liên minh này, Ngài đổi huy hiệu cá nhân từ chim săn mồi và tia chớp sang Aquila, con đại bàng hai đầu đại diện cho Terra và Mars, Imperium và Mechanicum. Từ đây Imperium thật sự ra đời, và Great Crusade chuẩn bị bắt đầu.</p>
+
+<h3 id="fall-aeldari">Sự sụp đổ của Aeldari</h3>
+<p class="thoi-gian">Khoảng cuối Age of Strife (mốc xấp xỉ)</p>
+<p>Đế chế Aeldari sa đọa trong hưởng thụ cực đoan, năng lượng cảm xúc của họ hợp lại thành vị thần Chaos mới là Slaanesh. Sự ra đời của Slaanesh xé toạc Warp, hình thành Eye of Terror, giết phần lớn Aeldari và khiến những người sống sót trốn vào các Craftworld. Warp lắng xuống, và việc bão Warp dịu đi cùng lúc với cuối Age of Strife chính là điều cho phép Hoàng đế khởi động Great Crusade.</p>
+
+<h2 id="thanh-lap">Thành lập Imperium</h2>
+
+<h3 id="great-crusade">Great Crusade</h3>
+<p class="thoi-gian">798.M30 – 005.M31</p>
+<p>Hoàng đế cùng các Legion Space Marine và Mechanicum bắt đầu tái chinh phục thiên hà. Trên đường đi, Ngài tìm lại các Primarch, những người con bị phân tán khắp thiên hà, và trao cho mỗi người một Legion. Cuộc Viễn chinh kéo dài khoảng hai trăm năm và thường được coi là thời hoàng kim ngắn ngủi của Imperium, một giai đoạn tái thiết và thống nhất sau thời thoái hóa của Age of Strife.</p>
+<p>Những chiến dịch đáng chú ý gồm First Pacification of Luna (trận đánh lớn đầu tiên), Interex Conflict (Horus xâm lược một nền văn minh nhân loại tiên tiến) và Ullanor Crusade, nơi Horus đánh bại đế chế Ork của Urlakk Urg. Trước chiến thắng Ullanor, Hoàng đế đích thân chỉ huy cuộc Viễn chinh; sau đó Ngài phong Horus làm Warmaster, trao toàn quyền chỉ huy các Primarch và Legion, rồi trở về Terra lo dự án Webway.</p>
+<p>Mặt tối cũng bắt đầu từ đây: việc nuôi cấy gene-seed ồ ạt để có đủ Space Marine đã để lại những khiếm khuyết di truyền ở nhiều Legion, và đó là một trong những yếu tố góp phần vào cuộc phản bội sau này.</p>
+
+<p>Ngay cả trước khi bão Warp và Age of Strife chấm dứt hẳn, Hoàng đế đã lên kế hoạch cho cuộc Viễn chinh. Sau khi giành Luna rồi Mars, Ngài khởi động một dự án xây dựng khổng lồ để dựng lại các ngành công nghiệp và nhà máy cần thiết, nhằm đóng và duy trì một hạm đội đủ sức đưa các Legion tới tận rìa thiên hà. Lực lượng nòng cốt gồm các Legion Space Marine cùng Imperial Army, Titan Legions, Legio Cybernetica, Sisters of Silence và Custodian Guard.</p>
+<p>Càng về sau, nhu cầu Space Marine càng vượt quá khả năng cung ứng. Một số Primarch trở nên khó chịu với nhau, trong khi những người như Magnus the Red dần bị cô lập giữa cơn hỗn loạn của cuộc Viễn chinh. Cuộc Viễn chinh được coi là kết thúc bằng vụ ném bom virus xuống Isstvan III, và khoảng thời gian hồi phục ngắn ngủi của nhân loại cũng chấm dứt ở đó.</p>
+<p>Đỉnh điểm là Ullanor Crusade vào khoảng 000.M31, cuộc tấn công vào đế chế của Ork Overlord Urlakk Urg. Horus dẫn một đội Terminator dịch chuyển thẳng đến chân tòa tháp trung tâm của pháo đài Ork, và chiến thắng này được xem là thành tựu lớn nhất của ông khi còn trung thành. Sau đó Hoàng đế tổ chức Triumph of Ullanor, tuyên bố Horus là Warmaster và đổi tên Luna Wolves thành Sons of Horus, đồng thời tuyên bố nghỉ việc chỉ huy Crusade. Từ đó Imperium tin rằng chủng tộc Ork đã bị đánh bại, không còn là mối đe dọa nghiêm trọng.</p>
+
+<h3 id="horus-heresy">Horus Heresy</h3>
+<p class="thoi-gian">005.M31 – 014.M31</p>
+<p>Horus bị Chaos mua chuộc và dẫn một nửa số Legion phản lại Hoàng đế. Cuộc nội chiến kéo dài khoảng chín đến mười năm, từ vụ thảm sát ở Istvaan đến Siege of Terra, và kết thúc khi Hoàng đế hạ Horus nhưng bị trọng thương và phải ngồi vĩnh viễn trên Golden Throne.</p>
+
+<h3 id="isstvan">Isstvan III và Isstvan V</h3>
+<p class="thoi-gian">Khoảng 005 – 006.M31</p>
+<p>Dấu hiệu công khai đầu tiên của sự phản bội là Isstvan III: Horus dùng bom virus quét sạch hành tinh để thanh trừng những người còn trung thành với Hoàng đế ngay trong các Legion của mình (Sons of Horus, Emperor's Children, Death Guard, World Eaters). Hàng tỷ dân thường chết theo.</p>
+<p>Tin tức thoát ra, và một lực lượng cứu viện gồm Iron Hands, Raven Guard và Salamanders được cử đến Isstvan V. Tại đây, làn sóng thứ hai gồm Alpha Legion, Night Lords, Iron Warriors và Word Bearers đã phản bội họ trong trận Dropsite Massacre, đánh tan lực lượng trung thành và biến cuộc nổi loạn thành nội chiến toàn thiên hà.</p>
+
+<p>Isstvan III là một Hive World được lập từ Age of Technology, thoát khỏi nhiều kinh hoàng của Age of Strife và được Raven Guard thu phục trong Great Crusade bằng một đòn tập kích từ quỹ đạo vào ban đêm. Sau đó, Baron Vardus Praal, thống đốc Isstvan, nổi loạn và thanh trừng các phần tử Imperium tới sáu năm trước khi tin tức về cuộc nổi loạn đến được Terra. Hội đồng Terra giao Horus dẹp loạn, và ông dẫn theo bốn Legion: Sons of Horus, Emperor's Children của Fulgrim, Death Guard của Mortarion và World Eaters của Angron. Horus cùng các Primarch này đã sa vào Chaos và nhân cơ hội đó thanh trừng mọi người bị nghi trung thành khỏi Legion của mình.</p>
+<p>Đợt đổ bộ đầu tiên toàn những người bị nghi là phe trung thành, được thả xuống Choral City bằng drop pod, không dùng Stormbird và bị cắt liên lạc với hạm đội, để không ai sống sót qua trận bom virus. Captain Saul Tarvitz của Emperor's Children nghi ngờ nên ở lại trên hạm đội, phát hiện kế hoạch và dùng một chiếc Thunderhawk đi cảnh báo. Nhờ vậy vài trăm Space Marine trung thành sống sót trong hầm kín. Khi bom virus rơi, hàng loạt xác chết phân hủy, và Horus còn châm một cơn bão lửa thiêu rụi các hive; truyền thuyết kể rằng tiếng thét tâm linh của 12 tỷ người lớn hơn cả Astronomican.</p>
+<p>Angron bất chấp lệnh Horus, dẫn World Eaters xuống tàn sát người sống sót, và Horus phải điều quân của mọi Legion xuống diệt phe trung thành. Nhóm trung thành do Garviel Loken, Tarik Torgaddon, Saul Tarvitz và Ehrlen chỉ huy đã kháng cự quyết liệt giữa tàn tích thành phố, biến cuộc tàn sát thành một trận đánh thực sự kéo dài ba tháng. Cuối cùng họ bị đè bẹp, một phần do sự phản bội của Lucius và đợt bắn phá từ quỹ đạo, nhưng gây thương vong lớn cho phe phản loạn. Trong lúc đó, Captain Nathaniel Garro của Death Guard cướp tàu hộ tống Eisenstein để chạy về báo tin phản bội cho Hoàng đế.</p>
+<p>Isstvan III sau đó trở thành thế giới chết bị phong tỏa. Mười nghìn năm sau, Dreadnought Rylanor, người sống sót duy nhất từ thảm họa ban đầu, dùng một đèn hiệu sóng âm dụ Fulgrim đến và kích nổ một quả bom virus chưa nổ, nhưng Fulgrim vẫn thoát.</p>
+
+<h3 id="heresy-giua">Các mặt trận trong Heresy</h3>
+<p class="thoi-gian">Khoảng 006 – 013.M31</p>
+<p>Sau Isstvan V, chiến tranh lan ra khắp nơi. Lorgar và Angron tàn phá Ultramar trong Shadow Crusade; Dark Angels và Night Lords giao chiến trong Thramas Crusade; Mechanicum chia rẽ thành cuộc nội chiến trên Mars; Iron Warriors dính vào trận xe tăng khổng lồ ở Tallarn; còn Beta-Garmon là cuộc đụng độ Titan mở đường cho cuộc tấn công Terra. Từ khoảng năm 010 trở đi, Horus gom lực lượng cho đòn quyết định, trong khi phe trung thành lui về lo phòng thủ.</p>
+
+<h3 id="siege-terra">Siege of Terra</h3>
+<p class="thoi-gian">014.M31</p>
+<p>Quân Horus vây Cung điện Hoàng đế trên Terra khoảng 55 ngày. Hoàng đế đích thân đối đầu Horus và hạ được hắn, nhưng bản thân Ngài bị thương nặng đến mức phải được đặt vĩnh viễn trên Golden Throne. Chiến thắng này giữ được Imperium, nhưng cái giá là một vị thần-vua không còn tự cai trị được nữa.</p>
+
+<p>Horus nhận ra mình phải hạ Terra trước khi các Legion trung thành khác kịp về. Hoàng đế giao quyền chỉ huy phòng thủ Terra cho Rogal Dorn của Imperial Fists, còn bản thân Ngài bận với dự án bí mật là Golden Throne. Vào ngày thứ mười ba của Secundus, cuộc bắn phá Terra bắt đầu: hạm đội phản loạn xuất phát từ Mars, phá các tuyến phòng thủ trên Luna, đập tan phòng thủ quỹ đạo Terra và đánh tan hạm đội trung thành sau khoảng 30 ngày giao chiến trong không gian. Mục tiêu cuối cùng của Horus là Imperial Palace.</p>
+<p>Sanguinius đối mặt Horus ngay trên tường thành và từ chối đầu hàng, mở đầu cuộc vây hãm. Trong lúc bế tắc, Emperor's Children dưới quyền Fulgrim sa vào một cuộc tàn sát dân Terra tàn bạo đến mức hàng nghìn năm sau người Terra vẫn nghi kỵ Space Marine. Khi biết các Legion trung thành, gồm Ultramarines, Space Wolves và Dark Angels, đang lao về Terra, Horus hạ lá chắn chống dịch chuyển trên chiến hạm Vengeful Spirit, như mời Hoàng đế đến gặp mình.</p>
+<p>Dù Dorn phản đối, Hoàng đế chấp nhận cái bẫy, giao Golden Throne cho Malcador rồi cùng Dorn, Sanguinius, một đội Terminator và Custodes dịch chuyển lên Vengeful Spirit. Khi gặp Horus, Ngài thấy xác Sanguinius bị hành hạ nằm dưới chân kẻ phản bội. Sau một trận chiến khốc liệt, Hoàng đế hạ được Horus nhưng bản thân bị trọng thương và chỉ còn đủ sức yêu cầu được đưa về Golden Throne. Chiến thắng này định hình vận mệnh nhân loại cho 10.000 năm sau và được coi là mốc thật sự bắt đầu của Age of the Imperium.</p>
+
+<h3 id="golden-throne-lich-su">Golden Throne</h3>
+<p class="thoi-gian">Cổ vật từ Age of Technology, hoạt động từ 014.M31</p>
+<p>Golden Throne là một cổ vật từ Age of Technology mà Hoàng đế tìm thấy trong những tàn tích bị chôn vùi ở sa mạc châu Á, làm hoàn toàn từ một loại kim loại vàng. Ngài dùng nó để vào Webway: vì Webway nguyên thủy được dựng bằng vật liệu kháng psychic mà con người không tái tạo được, Ngài dùng sức mạnh của mình qua Golden Throne để bảo vệ đoạn do con người xây khỏi Warp. Cánh cổng đã đóng, nhưng chỉ sức mạnh của Hoàng đế mới giữ nó đóng, nên Ngài buộc phải ở lại trên ngai hoặc tìm người thay thế. Khi Ngài đi đánh Horus, Malcador tạm thế chỗ và chết khi làm việc đó.</p>
+<p>Thân xác Hoàng đế được duy trì bằng các trường stasis và lò phản ứng psi-fusion vượt quá hiểu biết của Imperium ngày nay. Từ cuối M36, Golden Throne cần thêm ngày càng nhiều psyker bị hiến tế để vận hành, nên tin đồn rằng cơ chế của nó đang hỏng dần càng đáng lo.</p>
+
+<h3 id="great-scouring">Great Scouring</h3>
+<p class="thoi-gian">Từ 015.M31, kéo dài khoảng bảy năm</p>
+<p>Trước khi bị giam trên Golden Throne, Hoàng đế đã phán xử phe phản loạn: bị đẩy vào Eye of Terror và giam ở đó mãi mãi. Imperium thực thi bằng cuộc truy quét toàn thiên hà, thường gọi là Great Scouring, kéo dài khoảng bảy năm từ cuối Siege of Terra cho đến khi quân Phản loạn bị dồn hết vào Eye of Terror. Đây cũng là đợt thanh trừng quy mô thiên hà đầu tiên của Imperium. Ultramarines đóng vai trò lớn nhờ không tham gia Siege of Terra (họ đang đánh ở phía đông thiên hà), và Guilliman chủ trì nhiều thay đổi chính trị trong giai đoạn này.</p>
+<p>Các Legion phản loạn không đồng nhất: một số lao hẳn vào Chaos, số khác vẫn hành động như những Legion cũ, mơ hoàn thành Great Crusade theo cách méo mó của riêng họ.</p>
+
+<h2 id="age-imperium">Age of the Imperium</h2>
+
+<h3 id="rebirth">Thời kỳ hồi phục và Codex Astartes</h3>
+<p class="thoi-gian">M31 – M32</p>
+<p>Roboute Guilliman soạn Codex Astartes và chia các Legion khổng lồ thành các Chapter nhỏ hơn, để không ai còn đủ sức tạo ra một Horus mới. Cũng từ giai đoạn này, Ecclesiarchy, Administratum và Inquisition hình thành bộ máy của Imperium. Imperial Truth do Hoàng đế đặt ra (không có thần linh) đã tan rã: trong và sau Heresy, nhiều người bắt đầu thờ Ngài như God-Emperor.</p>
+
+<h3 id="second-founding">Codex Astartes và Second Founding</h3>
+<p class="thoi-gian">021.M31, bảy năm sau Horus Heresy</p>
+<p>Quyết định lâu dài và quan trọng nhất của Codex Astartes, bộ giáo điển do Roboute Guilliman soạn, là chia các Legion Space Marine còn lại thành những Chapter khoảng 1.000 người. Hai mươi Legion ban đầu do Hoàng đế tạo ra cho Great Crusade được gọi là First Founding; các Chapter sinh ra sau khi Legion bị chia nhỏ, vào bảy năm sau Heresy, thuộc Second Founding và mang huy hiệu, nghi lễ riêng. Codex không chỉ lo việc chia quân mà còn thành văn bản thiêng liêng điều chỉnh cách tuyển mộ, tổ chức và chiến thuật của đa số Chapter.</p>
+<p>Hầu hết Second Founding Chapter được tách từ Ultramarines, vì các Legion khác không đủ lớn để chia nhiều lần. Một ghi chép sớm, bản Apocrypha of Skaros, nói Ultramarines sinh ra 23 Primogenitor Chapter nhưng không liệt kê hết. Salamanders khi đó chỉ còn 7 đại đội nên không để lại Chapter kế tục nào. Sau hơn bốn mươi năm chuẩn bị, High Lords of Terra về sau còn duyệt hơn một trăm sắc lệnh kế tục cho các Chapter của cả First lẫn Second Founding.</p>
+<p>Không phải ai cũng theo Codex một cách nghiêm ngặt. Space Wolves có mười hai Great Company thay vì mười, và hệ thống tổ chức khác hẳn Ultramarines. Dorn bí mật lập một giao thức dự phòng gọi là Last Wall, buộc Imperial Fists và các Chapter kế tục hợp nhất dưới một chỉ huy tối cao nếu cần. Trong Dark Imperium, Guilliman còn có ý định thay Codex Astartes bằng Codex Imperialis.</p>
+
+<h3 id="waaagh-beast">WAAAGH! của Beast</h3>
+<p class="thoi-gian">544.M32</p>
+<p>Warboss Arrigan, "the Beast", hợp nhất phần lớn Orks và suýt chinh phục cả thiên hà. Imperium chặn được cuộc tràn quân, nhưng với cái giá là Space Marine bị tàn phá nặng và sau đó rơi vào hỗn loạn.</p>
+
+<h3 id="apostasy">Age of Apostasy và Age of Redemption</h3>
+<p class="thoi-gian">M36 – M37 trở đi</p>
+<p>Goge Vandire, người đứng đầu cả Administratum lẫn Ecclesiarchy, mở ra "Reign of Blood" kéo dài khoảng 70 năm: thanh trừng các giáo sĩ chống đối, dựng Hồng y thân tín, xây tượng đài cho chính mình và gây nội chiến lan rộng. Vì Vandire che giấu việc chiếm quyền của các High Lord khá khéo, ít ai biết hết mức độ bạo ngược cho đến khi một hạm đội Black Templars tình cờ phát hiện.</p>
+<p>Sebastian Thor, một nhà thuyết giáo cuốn hút, dẫn Confederation of Light nổi dậy. Hạm đội Vandire cử đi dẹp bị một cơn bão Warp (Storm of the Emperor's Wrath) nuốt chửng, khiến nhiều người tin Hoàng đế đứng về phía Thor. Cuối cùng quân đội nhiều Chapter đổ bộ Terra; Alicia Dominica, đội trưởng cận vệ của Vandire, được một Custodes cho diện kiến Golden Throne, nhận ra sự thật rồi chặt đầu chủ nhân.</p>
+<p>Thor trở thành Ecclesiarch thứ 292 và cải tổ Imperium để không ai còn thao túng Giáo hội như Vandire. Điểm cốt lõi là Decree Passive (288.M36), cấm Ecclesiarchy giữ quân đội riêng. Adepta Sororitas được miễn, vì họ chỉ gồm các nữ chiến binh và vì Giáo hội cần chút lực lượng bảo vệ. Sau đó Imperium dần ổn định lại trong Age of Redemption (M37 – M41).</p>
+
+<h3 id="black-crusades">Các cuộc Black Crusade</h3>
+<p class="thoi-gian">781.M31 – 999.M41</p>
+<p>Abaddon the Despoiler, Warmaster của Chaos, nhiều lần dẫn quân ra khỏi Eye of Terror tấn công Imperium. Cuộc đầu tiên diễn ra năm 781.M31 và nhắm vào Cadia, thế giới pháo đài giữ Cadian Gate, tuyến Warp trọng yếu vào Imperium; cuộc thứ 12 (Gothic War) mở màn bằng cuộc đột kích Arx Station vào thế kỷ 41, còn cuộc thứ 13 mang lại hậu quả lớn nhất.</p>
+
+<h3 id="macharius">Macharius và Macharian Heresy</h3>
+<p class="thoi-gian">Khoảng 392.M41</p>
+<p>Lord Solar Macharius dẫn cuộc Viễn chinh kéo dài khoảng bảy năm, đưa gần 1.000 thế giới về Imperium, trong đó có nhiều thuộc địa bị mất từ Age of Apostasy. Sau khi ông mất, các tướng từng theo ông tranh giành lãnh thổ, mở đầu Macharian Heresy.</p>
+
+<h3 id="m41-khac">Những biến cố khác của M41</h3>
+<p class="thoi-gian">M41 (nhiều mốc năm)</p>
+<p>Thế kỷ 41 còn nhiều chiến dịch lớn: Ultramarines dẫn liên quân trong Corinthian Crusade đánh bại Orks ở Charadon; Hive Fleet Naga xuất hiện trong không gian Aeldari và bị họ tiêu diệt với cái giá đắt; T'au chống lại hạm đội Ork khổng lồ trong Great War of Confederation; Imperium mở Damocles Crusade (742.M41) chống T'au.</p>
+
+<h3 id="tyranids">Chạm trán Tyranids</h3>
+<p class="thoi-gian">745.M41 trở đi</p>
+<p>Hive Fleet Behemoth tràn vào lãnh thổ Ultramarines năm 745.M41, mở màn các đợt xâm lược của Tyranids từ ngoài thiên hà. Sau đó là Kraken và Leviathan, các hạm đội con của cùng một mối đe dọa.</p>
+
+<h3 id="great-awakening">Great Awakening</h3>
+<p class="thoi-gian">Cuối M41</p>
+<p>Một dị thường Warp mang tên Great Awakening gây ra nhiều cuộc xâm lăng của quỷ, rồi Abaddon nhân đó mở Black Crusade thứ 13.</p>
+
+<h2 id="dark-imperium">Dark Imperium</h2>
+
+<h3 id="cadia">Sự sụp đổ của Cadia</h3>
+<p class="thoi-gian">999.M41</p>
+<p>Trong Black Crusade thứ 13, Abaddon dẫn một đạo quân lớn nhất từ thời Horus Heresy ra khỏi Eye of Terror, phá hủy các Cadian Pylons và hạ Cadia, thế giới pháo đài đã đứng vững hàng thiên niên kỷ chặn cửa Eye of Terror. Warp tràn ra, hình thành Great Rift (Cicatrix Maledictum) xé đôi thiên hà, tách Terra khỏi nhiều thế giới phía Bắc.</p>
+
+<h3 id="guilliman">Guilliman trở lại</h3>
+<p class="thoi-gian">999.M41</p>
+<p>Roboute Guilliman được hồi sinh và trở thành Lord Commander của Imperium. Ông cải tổ chính quyền và mở Indomitus Crusade cùng các Primaris Marine, cố gắng nối lại những vùng bị Great Rift chia cắt. Ông đã lường trước rằng Chaos sẽ không bao giờ ngừng nhằm vào Imperium, nên cần những chiến binh đủ bền bỉ cho thời đại mới.</p>
+
+<h3 id="imperium-nihilus">Imperium Nihilus</h3>
+<p class="thoi-gian">Sau Great Rift</p>
+<p>Đi qua Great Rift gần như bất khả thi; chỉ có những tuyến Warp tạm thời tới vài thế giới phòng thủ tốt phía bên kia. Ở đó ánh sáng Astronomican bị che bởi cơn bão tâm linh, và vùng này được gọi là Imperium Nihilus, hay Dark Imperium. Các Chapter như Blood Angels bị cô lập ở "bên tối" của thiên hà.</p>
+
+<h3 id="tau-necron">T'au và Necrons</h3>
+<p class="thoi-gian">M41 trở đi</p>
+<p>T'au Empire mở rộng theo lý tưởng "Greater Good", còn Necrons thức dậy từ giấc ngủ hàng triệu năm để đòi lại thiên hà. Cả hai trở thành những thế lực lớn cạnh tranh với Imperium.</p>
+
+<h3 id="psychic-awakening">Psychic Awakening</h3>
+<p class="thoi-gian">Sau Great Rift</p>
+<p>Chuỗi chiến dịch lớn khép lại giai đoạn đầu của Dark Imperium. Một trong những cột mốc là cuộc chiến ở Nachmund Gauntlet, một trong số ít tuyến đường an toàn qua Cicatrix Maledictum, và cảnh Ghazghkull bị Ragnar Blackmane chặt đầu (rồi được gắn lại vào một thân xác lớn hơn).</p>
+
+<h3 id="arks-omen">Arks of Omen</h3>
+<p class="thoi-gian">Đầu M42 (phát hành 2023)</p>
+<p>Abaddon nhận được một đồng minh bí ẩn là Vashtorr the Arkifane, và hai bên chế tạo các Arks of Omen cùng những Balefleet nhằm giành quyền thống trị Imperium Nihilus. Trên đường đi, Angron phá hủy Choral Engine, một đèn hiệu tâm linh có từ Age of Technology mà phía Imperium trông cậy để thay Astronomican. Series khép lại với sự trở lại bất ngờ của Primarch Dark Angels, Lion El'Jonson.</p>
+
+<h3 id="fourth-tyranid">Fourth Tyranid War</h3>
+<p class="thoi-gian">Đầu M42</p>
+<p>Trong lúc Imperium bận ở phía bên kia thiên hà, Hive Fleet Leviathan quay lại và đe dọa cả Terra. Câu chuyện vẫn đang được mở rộng nên phần này sẽ còn thay đổi.</p>
+
+<h3 id="golden-throne">Golden Throne đang suy yếu</h3>
+<p class="thoi-gian">Đầu M42</p>
+<p>Cuối M41 và đầu M42, loài người phải chiến đấu cho sự sống còn của mình: Abaddon dẫn Black Crusade thứ 13 tiến về Terra, Orks tập hợp cho một WAAAGH! lớn nhất lịch sử, còn Hive Fleet Leviathan và Tyranids đe dọa nuốt trọn mọi phe, bất kể Trật tự hay Chaos. Trong Imperial Palace trên Terra, tin đồn lan ra rằng cơ chế duy trì sự sống cho Hoàng đế trên Golden Throne đang hỏng dần và Mechanicus không còn đủ tri thức để sửa chữa. Nếu lời của Imperial Creed là đúng, chỉ còn biết cầu xin Hoàng đế bảo vệ chúng ta.</p>
+
+<h2 id="tra-cuu">Tra cứu mốc thời gian</h2>
+<p class="nguon-dl" id="nguon" role="status">Đang tải dữ liệu…</p>
+<div class="cong-cu">
+  <input id="tim" type="search" placeholder="Tìm sự kiện hoặc năm…" aria-label="Tìm sự kiện">
+  <select id="loc" aria-label="Lọc theo kỷ nguyên"><option value="">Tất cả kỷ nguyên</option></select>
+</div>
+<ul class="moc" id="ds"></ul>
+<p class="khong-co" id="trong">Không tìm thấy kết quả. Thử từ khóa hoặc kỷ nguyên khác.</p>
+
+</div>
+
+<div class="tab" id="tab-phephai" hidden>
+<h2>Phe phái</h2>
+<p class="gioi-thieu">Những thế lực lớn của vũ trụ 40k vào cuối Thiên niên kỷ 41. Bấm vào một phe để xem chi tiết.</p>
+<div class="luoi" id="pp-luoi"></div>
+<div class="chitiet" id="pp-ct">Chọn một phe ở trên để xem mô tả.</div>
+</div>
+<div class="tab" id="tab-legion" hidden>
+<h2>18 Legion Space Marine</h2>
+<p class="gioi-thieu">Hai mươi Legion ban đầu do Hoàng đế tạo ra cho Great Crusade. Hai Legion (II và XI) đã bị xóa khỏi mọi ghi chép nên chỉ còn 18 Legion được biết đến. Kéo ngang để xem, bấm vào một Legion để xem chi tiết.</p>
+<div class="dai-wrap"><button type="button" class="mui" id="lg-trai" aria-label="Cuộn trái">‹</button><div class="dai" id="lg-dai"></div><button type="button" class="mui" id="lg-phai" aria-label="Cuộn phải">›</button></div>
+<div class="chitiet" id="lg-ct">Chọn một Legion ở trên để xem mô tả.</div>
+</div>
+<footer>
+  Cấu trúc các chương dựa theo video
+  <a href="https://www.youtube.com/watch?v=0XPU2v7RhDI" target="_blank" rel="noopener">Everything about the event timeline of the Warhammer 40k universe (Remastered)</a>
+  của kênh Pháo Đài Một Người. Nội dung do mình viết lại; các mốc năm đối chiếu từ Lexicanum và các timeline cộng đồng. Phần Tổng quan thiên hà và thời tiền Imperium được bổ sung từ ghi chú của chủ trang, các sơ đồ minh họa do trang tự vẽ. Phần mở rộng tham khảo thêm:
+  <ul>
+    <li><a href="https://www.pcgamer.com/au/major-events-in-the-warhammer-40000-timeline" target="_blank" rel="noopener">PC Gamer: Major events in the Warhammer 40,000 timeline</a></li>
+    <li><a href="https://warhammer40k.fandom.com/wiki/Great_Crusade" target="_blank" rel="noopener">Warhammer 40k Wiki: Great Crusade</a></li>
+    <li><a href="https://wh40k.lexicanum.com/wiki/Isstvan_Three" target="_blank" rel="noopener">Lexicanum: Isstvan III</a></li>
+    <li><a href="https://www.warhammer-community.com/en-gb/articles/xmlkha5o/the-scouring-timeline-how-the-warhammer-studio-worked-with-black-library-authors-on-the-new-series/" target="_blank" rel="noopener">Warhammer Community: The Scouring timeline</a></li>
+    <li><a href="https://warhammer40k.fandom.com/wiki/Decree_Passive" target="_blank" rel="noopener">Warhammer 40k Wiki: Decree Passive</a></li>
+    <li><a href="https://www.wargamer.com/warhammer-40k/arks-of-omen" target="_blank" rel="noopener">Wargamer: Arks of Omen</a></li>
+    <li><a href="https://belloflostsouls.net/?p=365141" target="_blank" rel="noopener">Bell of Lost Souls: The Age of Strife</a></li>
+    <li><a href="https://belloflostsouls.net/?p=279917" target="_blank" rel="noopener">Bell of Lost Souls: The Unification Wars</a></li>
+    <li><a href="https://www.belloflostsouls.net/?p=361597" target="_blank" rel="noopener">Bell of Lost Souls: The Dark Age of Technology</a></li>
+    <li><a href="https://warhammer40k.fandom.com/wiki/Men_of_Iron" target="_blank" rel="noopener">Warhammer 40k Wiki: Men of Iron</a></li>
+    <li><a href="https://warhammer40k.fandom.com/wiki/Treaty_of_Mars" target="_blank" rel="noopener">Warhammer 40k Wiki: Treaty of Mars</a></li>
+    <li><a href="https://wh40k.lexicanum.com/wiki/Triumph_of_Ullanor" target="_blank" rel="noopener">Lexicanum: Triumph of Ullanor</a></li>
+    <li><a href="https://belloflostsouls.net/?p=80924" target="_blank" rel="noopener">Bell of Lost Souls: The Great Crusade (từ Lexicanum)</a></li>
+    <li><a href="https://belloflostsouls.net/?p=103933" target="_blank" rel="noopener">Bell of Lost Souls: The Siege of Terra (từ Lexicanum)</a></li>
+    <li><a href="https://belloflostsouls.net/?p=268336" target="_blank" rel="noopener">Bell of Lost Souls: The Golden Throne (từ Lexicanum)</a></li>
+    <li><a href="https://wh40k.lexicanum.com/wiki/2nd_Founding" target="_blank" rel="noopener">Lexicanum: Second Founding</a></li>
+  </ul>
+  Đây là dự án fan, không liên kết với Games Workshop.
+</footer>
+</main>
+</div>
+
+<script>
+/* DỮ LIỆU DỰ PHÒNG: tự sinh từ data/su-kien.json bằng "npm run build-data".
+   Chỉ dùng khi không gọi được máy chủ SQL (ví dụ mở thẳng file index.html). */
+/*DATA_START*/
+const duPhong = [];
+/*DATA_END*/
+
+const ds=document.getElementById('ds'),tim=document.getElementById('tim'),loc=document.getElementById('loc'),
+      trong=document.getElementById('trong'),nguon=document.getElementById('nguon');
+let dungSql=true, bo=0; // bo: số thứ tự yêu cầu, bỏ qua phản hồi cũ
+
+function locLocal(t,k){
+  t=t.toLowerCase();
+  return duPhong.filter(s=>(!k||s.ky===k)&&(s.nam+' '+s.tieu_de+' '+s.nd+' '+s.ky).toLowerCase().includes(t));
+}
+async function layKyNguyen(){
+  try{
+    const r=await fetch('/api/ky-nguyen'); if(!r.ok) throw 0;
+    return (await r.json()).map(k=>k.ten);
+  }catch{ dungSql=false; return [...new Set(duPhong.map(s=>s.ky))]; }
+}
+async function layDuLieu(t,k){
+  if(dungSql){
+    try{
+      const r=await fetch('/api/su-kien?'+new URLSearchParams({q:t,ky:k})); if(!r.ok) throw 0;
+      return await r.json();
+    }catch{ dungSql=false; }
+  }
+  return locLocal(t,k);
+}
+function ve(kq){
+  ds.replaceChildren(...kq.map(s=>{
+    const li=document.createElement('li');
+    const b=document.createElement('b'); b.textContent=s.nam;
+    const sm=document.createElement('small'); sm.textContent=' · '+s.ky;
+    const st=document.createElement('strong'); st.textContent=s.tieu_de;
+    const nd=document.createElement('span'); nd.className='nd'; nd.textContent=s.nd;
+    li.append(b,sm,document.createElement('br'),st,nd);
+    return li;
+  }));
+  trong.style.display=kq.length?'none':'block';
+  nguon.textContent=dungSql?'Dữ liệu: đang đọc từ cơ sở dữ liệu SQL qua máy chủ.':'Dữ liệu: bản nhúng sẵn trong trang (chưa kết nối máy chủ SQL).';
+  nguon.classList.toggle('sql',dungSql);
+}
+async function hienThi(){
+  const mine=++bo, kq=await layDuLieu(tim.value.trim(),loc.value);
+  if(mine===bo) ve(kq);
+}
+let hen; tim.addEventListener('input',()=>{clearTimeout(hen);hen=setTimeout(hienThi,200)});
+loc.addEventListener('change',hienThi);
+(async()=>{ (await layKyNguyen()).forEach(k=>loc.add(new Option(k,k))); hienThi(); })();
+
+/* MỤC LỤC TỰ ĐỘNG từ h2 / h3 có id */
+const ml=document.getElementById('ml');let cha=null,i2=0,i3=0;
+document.querySelectorAll('#tab-lichsu h2[id], #tab-lichsu h3[id]').forEach(h=>{
+  const li=document.createElement('li');
+  if(h.tagName==='H2'){i2++;i3=0;li.innerHTML=`<a href="#${h.id}">${i2}. ${h.textContent}</a><ol></ol>`;ml.appendChild(li);cha=li.querySelector('ol');}
+  else{i3++;li.innerHTML=`<a href="#${h.id}">${i2}.${i3}. ${h.textContent}</a>`;cha.appendChild(li);}
+});
+const links=[...ml.querySelectorAll('a')];
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)links.forEach(a=>a.classList.toggle('dang-xem',a.getAttribute('href')==='#'+e.target.id));
+}),{rootMargin:'0px 0px -70% 0px'});
+document.querySelectorAll('#tab-lichsu h2[id], #tab-lichsu h3[id]').forEach(h=>obs.observe(h));
+</script>
+<script>
+(async function(){
+var me=null;try{var r=await fetch("/api/me");if(r.ok)me=await r.json()}catch(e){}
+if(!me||!me.username){location.replace("/");return}
+var J={"Content-Type":"application/json"};
+function post(u,d){return fetch(u,{method:"POST",headers:J,body:JSON.stringify(d||{})}).then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j}})})}
+var bar=document.createElement("div");bar.id="tkbar";
+function btn(t,f){var b=document.createElement("button");b.type="button";b.textContent=t;b.onclick=f;bar.appendChild(b);return b}
+if(me.role==="admin")btn("Quản trị",openAdmin);
+btn("Đổi mật khẩu",async function(){var o=prompt("Mật khẩu hiện tại:");if(o===null)return;var n=prompt("Mật khẩu mới (ít nhất 6 ký tự):");if(n===null)return;var x=await post("/api/password",{old:o,new:n});alert(x.ok?"Đã đổi mật khẩu.":x.j.error)});
+btn("Đăng xuất ("+me.username+")",async function(){await post("/api/logout");location.replace("/")});
+(document.getElementById("tabhead")||document.body).appendChild(bar);
+async function openAdmin(){
+ var r=await fetch("/api/users");if(!r.ok)return;var d=await r.json();
+ var m=document.createElement("div");m.id="adm";var c=document.createElement("div");c.className="adm-in";
+ var h=document.createElement("h3");h.textContent="Tài khoản đã đăng ký ("+d.users.length+")";c.appendChild(h);
+ var t=document.createElement("table");t.innerHTML="<tr><th>Tên</th><th>Vai trò</th><th>Ngày tạo</th><th></th></tr>";
+ d.users.forEach(function(u){var tr=document.createElement("tr");[u.username,u.role,u.created_at].forEach(function(v){var td=document.createElement("td");td.textContent=v;tr.appendChild(td)});
+  var td=document.createElement("td");if(u.role!=="admin"){var b=document.createElement("button");b.textContent="Xóa";b.onclick=async function(){if(!confirm("Xóa tài khoản "+u.username+"?"))return;var x=await post("/api/users/delete",{username:u.username});if(x.ok){tr.remove()}else alert(x.j.error)};td.appendChild(b)}
+  tr.appendChild(td);t.appendChild(tr)});
+ c.appendChild(t);var x=document.createElement("button");x.textContent="Đóng";x.onclick=function(){m.remove()};c.appendChild(x);m.appendChild(c);m.onclick=function(e){if(e.target===m)m.remove()};document.body.appendChild(m)}
+})();
+</script>
+<script>
+(function(){
+var LG=[["I", "Dark Angels", "Lion El’Jonson", "Caliban", "#2d5a3d", "t", "Legion mang phong cách hiệp sĩ trầm lặng và bí mật. Sau Heresy, quê hương Caliban bị phá hủy khi một phần Legion nổi loạn theo Luther, để lại những “Fallen” mà Chapter vẫn săn lùng."], ["III", "Emperor’s Children", "Fulgrim", "Chemos", "#7b3f9e", "p", "Legion theo đuổi sự hoàn hảo trong mọi việc. Chính nỗi ám ảnh đó đã đẩy họ sa vào Slaanesh và trở thành một trong những Legion phản loạn."], ["IV", "Iron Warriors", "Perturabo", "Olympia", "#6b7078", "p", "Chuyên gia công thành và chiến tranh hầm hào. Họ nuôi mối hận vì cảm thấy công lao bị xem nhẹ, và ngả theo Horus."], ["V", "White Scars", "Jaghatai Khan", "Chogoris", "#e8e4da", "t", "Legion nổi tiếng với những đòn đánh chớp nhoáng bằng xe cơ giới và kỵ binh. Họ trung thành, nhưng đến Terra khá muộn trong cuộc vây hãm."], ["VI", "Space Wolves", "Leman Russ", "Fenris", "#8fb0c8", "t", "Chiến binh dữ dằn đến từ thế giới băng giá Fenris. Họ là nanh vuốt trừng phạt của Hoàng đế, trong đó có cuộc tấn công vào Prospero."], ["VII", "Imperial Fists", "Rogal Dorn", "Terra", "#d8b92a", "t", "Bậc thầy công sự và phòng thủ. Dorn chỉ huy việc bảo vệ Imperial Palace trong cuộc vây hãm Terra."], ["VIII", "Night Lords", "Konrad Curze", "Nostramo", "#2a4e8a", "p", "Legion dùng khủng bố tâm lý làm vũ khí. Nostramo là thế giới tội phạm, và tính cách của Legion mang dấu ấn đó."], ["IX", "Blood Angels", "Sanguinius", "Baal", "#a3232b", "t", "Legion thiên thần với Primarch có đôi cánh. Họ mang trong mình lời nguyền Red Thirst và Black Rage, và Sanguinius hy sinh trước Horus."], ["X", "Iron Hands", "Ferrus Manus", "Medusa", "#8a8f96", "t", "Legion tin vào sức mạnh máy móc, thay dần thân xác bằng kim loại. Ferrus Manus bị Fulgrim sát hại ở Isstvan V."], ["XII", "World Eaters", "Angron", "Nuceria", "#a82c1f", "p", "Legion cận chiến tàn bạo dưới quyền Angron, gắn với Khorne. Những chiếc Butcher’s Nail trong đầu khiến họ mất kiểm soát."], ["XIII", "Ultramarines", "Roboute Guilliman", "Macragge", "#1f4aa8", "t", "Legion lớn và có kỷ luật nhất, cai trị năm trăm thế giới của Ultramar. Guilliman về sau soạn Codex Astartes."], ["XIV", "Death Guard", "Mortarion", "Barbarus", "#8f9a4a", "p", "Legion kiên cường bền bỉ trước mọi nghịch cảnh, lớn lên trong thế giới độc hại. Về sau họ quy phục Nurgle."], ["XV", "Thousand Sons", "Magnus the Red", "Prospero", "#2f6fd0", "p", "Legion của các psyker và học giả. Prospero bị phá hủy khi Magnus bị buộc tội, đẩy Legion về phía Tzeentch."], ["XVI", "Sons of Horus", "Horus Lupercal", "Cthonia", "#4aa08e", "p", "Từng là Luna Wolves, đổi tên sau chiến thắng Ullanor. Đây là Legion của Warmaster Horus, kẻ khởi xướng cuộc nổi loạn."], ["XVII", "Word Bearers", "Lorgar Aurelian", "Colchis", "#6d1c24", "p", "Legion truyền đạo, ban đầu rao giảng Imperial Truth và ngưỡng mộ Hoàng đế như thần. Họ phản bội sau khi bị chỉ trích và ngả theo Chaos."], ["XVIII", "Salamanders", "Vulkan", "Nocturne", "#3e9b4c", "t", "Legion thợ rèn nổi tiếng quan tâm đến thường dân. Họ có làn da đen và mắt đỏ, và chỉ còn bảy đại đội khi Second Founding diễn ra."], ["XIX", "Raven Guard", "Corvus Corax", "Deliverance", "#1c1c24", "t", "Chuyên gia tấn công lén và du kích. Legion bị tổn thất nặng ở Isstvan V nhưng vẫn trung thành."], ["XX", "Alpha Legion", "Alpharius Omegon", "Không rõ", "#3e7a74", "p", "Legion bí ẩn, đặc trưng bởi gián điệp và lừa gạt. Nhiều chi tiết về nguồn gốc và lòng trung thành thực sự của họ vẫn gây tranh cãi."]];
+var PP=[["Imperium of Man", "Con người", "#c49a45", "Toàn thiên hà, tâm tại Terra", "Đế chế lớn nhất của loài người, cai trị hàng triệu thế giới nhân danh Hoàng đế trên Golden Throne.", "Gồm Adeptus Astartes, Astra Militarum, Adeptus Mechanicus, Inquisition, Adepta Sororitas, Adeptus Custodes, Ecclesiarchy."], ["Chaos", "Chaos", "#a9472f", "Eye of Terror, Warp", "Các thế lực của Warp: bốn Chaos God (Khorne, Tzeentch, Nurgle, Slaanesh) cùng những kẻ phản bội và quỷ dữ phụng sự họ.", "Gồm Chaos Space Marines, Daemons, Cultists và các Warband của Heretic Astartes."], ["Aeldari", "Xenos", "#6f9ec0", "Craftworld, Webway", "Chủng tộc cổ xưa đã sa ngã trong Fall of the Aeldari. Những người sống sót lênh đênh trên Craftworld để tránh Slaanesh.", "Gồm Craftworld Aeldari, Exarchs, Farseers, Wraithguard và Harlequins."], ["Drukhari", "Xenos", "#7a4fa8", "Commorragh, Webway", "Nhánh Aeldari tàn nhẫn sống trong thành phố ngầm Commorragh, nuôi mình bằng nỗi đau của nạn nhân để chống lại Slaanesh.", "Gồm Archons, Wyches, Incubi và Mandrakes."], ["Orks", "Xenos", "#5a8a3a", "Toàn thiên hà", "Chủng tộc chiến binh sinh ra để đánh nhau, thích dùng vũ khí cải tiến lộn xộn và thường tập hợp thành WAAAGH! khổng lồ.", "Gồm Boyz, Warbosses, Meganobz và Gretchin."], ["Necrons", "Xenos", "#4a9a6a", "Tomb Worlds", "Chủng tộc cổ xưa đã chuyển linh hồn vào thân xác necrodermis. Họ vừa thức dậy khỏi Great Sleep và muốn giành lại thiên hà.", "Gồm Necron Overlords, Immortals, Lychguard và Canoptek."], ["T’au Empire", "Xenos", "#c8a64a", "Ultima Segmentum", "Đế chế xenos trẻ, theo đuổi Greater Good, kết hợp công nghệ tiên tiến với các chủng tộc phụ thuộc.", "Gồm Fire Warriors, Crisis Battlesuits, Ethereals và Kroot."], ["Tyranids", "Xenos", "#9a4a7a", "Từ ngoài thiên hà", "Bầy xâm lược ăn tạp do Hive Mind điều khiển, nuốt trọn sinh quyển của từng thế giới. Hive Fleet Leviathan là mối đe dọa lớn.", "Gồm Termagants, Genestealers, Carnifexes và Hive Tyrants."], ["Leagues of Votann", "Xenos", "#b87a3a", "Các Kin Hold ở rìa thiên hà", "Chủng tộc hậu duệ của nhân loại thích nghi với môi trường khắc nghiệt, nay được biết đến như những người “Squat” cổ xưa.", "Gồm Hearthkyn Warriors, Einhyr, Kin và Ironkin."], ["Genestealer Cults", "Xenos", "#8a6a9a", "Bên trong các thế giới Imperium", "Giáo phái bí mật lây nhiễm từ Genestealer, chờ ngày nổi dậy khi Hive Fleet đến gần.", "Gồm Acolytes, Neophytes, Patriarch và Magus."]];
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+var ICO={"Dark Angels": "<path fill=\"currentColor\" d=\"M32 4l4 36h-8z\"/><rect fill=\"currentColor\" x=\"19\" y=\"40\" width=\"26\" height=\"4\"/><rect fill=\"currentColor\" x=\"30\" y=\"44\" width=\"4\" height=\"12\"/><path fill=\"currentColor\" d=\"M27 24C14 18 7 22 4 34c8-6 15-5 23-2zM37 24c13-6 20-2 23 10-8-6-15-5-23-2z\"/>", "Emperor’s Children": "<path fill=\"currentColor\" d=\"M32 4l6 20 20 8-20 8-6 20-6-20-20-8 20-8z\"/><circle cx=\"32\" cy=\"32\" r=\"5\" style=\"fill:var(--nen2)\"/>", "Iron Warriors": "<rect fill=\"currentColor\" x=\"12\" y=\"28\" width=\"40\" height=\"28\"/><rect fill=\"currentColor\" x=\"12\" y=\"18\" width=\"10\" height=\"10\"/><rect fill=\"currentColor\" x=\"27\" y=\"18\" width=\"10\" height=\"10\"/><rect fill=\"currentColor\" x=\"42\" y=\"18\" width=\"10\" height=\"10\"/><path style=\"fill:var(--nen2)\" d=\"M26 56V44a6 6 0 0 1 12 0v12z\"/>", "White Scars": "<path fill=\"currentColor\" d=\"M38 4L14 36h14l-6 24 28-34H36z\"/>", "Space Wolves": "<path fill=\"currentColor\" d=\"M10 8l14 10h16L54 8l-2 20-10 8 4 20-14-6-14 6 4-20-10-8z\"/><circle cx=\"24\" cy=\"30\" r=\"2.5\" style=\"fill:var(--nen2)\"/><circle cx=\"40\" cy=\"30\" r=\"2.5\" style=\"fill:var(--nen2)\"/>", "Imperial Fists": "<rect fill=\"currentColor\" x=\"12\" y=\"14\" width=\"9\" height=\"16\" rx=\"3\"/><rect fill=\"currentColor\" x=\"22\" y=\"12\" width=\"9\" height=\"18\" rx=\"3\"/><rect fill=\"currentColor\" x=\"32\" y=\"12\" width=\"9\" height=\"18\" rx=\"3\"/><rect fill=\"currentColor\" x=\"42\" y=\"14\" width=\"9\" height=\"16\" rx=\"3\"/><rect fill=\"currentColor\" x=\"12\" y=\"26\" width=\"39\" height=\"22\" rx=\"5\"/><rect fill=\"currentColor\" x=\"6\" y=\"32\" width=\"9\" height=\"14\" rx=\"3\"/><rect fill=\"currentColor\" x=\"20\" y=\"48\" width=\"24\" height=\"10\"/>", "Night Lords": "<path fill=\"currentColor\" d=\"M32 20l4-8 2 10c6-6 14-8 24-6-4 4-4 8-6 12-3-3-6-3-8 0-2-3-6-3-8 2l-4 12-4-12c-2-5-6-5-8-2-2-3-5-3-8 0-2-4-2-8-6-12 10-2 18 0 24 6l2-10z\"/>", "Blood Angels": "<path fill=\"currentColor\" d=\"M32 8C22 24 18 32 18 40a14 14 0 0 0 28 0c0-8-4-16-14-32z\"/><path fill=\"currentColor\" d=\"M18 34C8 30 4 34 2 42c6-4 10-4 16-2zM46 34c10-4 14 0 16 8-6-4-10-4-16-2z\"/>", "Iron Hands": "<g fill=\"currentColor\"><rect x=\"28\" y=\"4\" width=\"8\" height=\"56\"/><rect x=\"28\" y=\"4\" width=\"8\" height=\"56\" transform=\"rotate(45 32 32)\"/><rect x=\"28\" y=\"4\" width=\"8\" height=\"56\" transform=\"rotate(90 32 32)\"/><rect x=\"28\" y=\"4\" width=\"8\" height=\"56\" transform=\"rotate(135 32 32)\"/><circle cx=\"32\" cy=\"32\" r=\"18\"/></g><circle cx=\"32\" cy=\"32\" r=\"7\" style=\"fill:var(--nen2)\"/>", "World Eaters": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" d=\"M14 54L46 10M50 54L18 10\"/><path fill=\"currentColor\" d=\"M46 10c8 0 12 6 12 12-6-2-10-2-14 2zM18 10C10 10 6 16 6 22c6-2 10-2 14 2z\"/>", "Ultramarines": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M10 52h14C14 46 10 38 10 30a22 22 0 0 1 44 0c0 8-4 16-14 22h14\"/>", "Death Guard": "<circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\"/><circle cx=\"32\" cy=\"20\" r=\"7\" fill=\"currentColor\"/><circle cx=\"21\" cy=\"40\" r=\"7\" fill=\"currentColor\"/><circle cx=\"43\" cy=\"40\" r=\"7\" fill=\"currentColor\"/>", "Thousand Sons": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\" d=\"M4 32C14 14 50 14 60 32 50 50 14 50 4 32z\"/><circle cx=\"32\" cy=\"32\" r=\"9\" fill=\"currentColor\"/><circle cx=\"32\" cy=\"32\" r=\"3.5\" style=\"fill:var(--nen2)\"/>", "Sons of Horus": "<circle cx=\"32\" cy=\"32\" r=\"26\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"4\"/><path fill=\"currentColor\" d=\"M14 32c8-10 28-10 36 0-8 10-28 10-36 0z\"/><circle cx=\"32\" cy=\"32\" r=\"4\" style=\"fill:var(--nen2)\"/><path d=\"M32 42v12\" stroke=\"currentColor\" stroke-width=\"4\"/>", "Word Bearers": "<path fill=\"currentColor\" d=\"M6 34l26 6 26-6v20L32 60 6 54z\"/><path d=\"M32 40v20\" style=\"stroke:var(--nen2)\" stroke-width=\"2\"/><path fill=\"currentColor\" d=\"M32 4c8 8 10 14 6 20-2 3-6 3-8 0-4-6-2-12 2-20z\"/>", "Salamanders": "<path fill=\"currentColor\" d=\"M6 16h40c4 0 6 4 4 8l-8 8H24v8h12v8H18v-8h6v-8H18C10 32 6 26 6 16z\"/><rect fill=\"currentColor\" x=\"14\" y=\"56\" width=\"28\" height=\"4\"/>", "Raven Guard": "<path fill=\"currentColor\" d=\"M8 30l16-14c4-4 12-6 18-2l14 10-14 2 8 8-14-2-6 14-4-12-10 4z\"/><circle cx=\"36\" cy=\"20\" r=\"2\" style=\"fill:var(--nen2)\"/>", "Alpha Legion": "<text x=\"32\" y=\"50\" text-anchor=\"middle\" font-size=\"58\" font-family=\"serif\" font-weight=\"700\" fill=\"currentColor\">α</text>", "Imperium of Man": "<path fill=\"currentColor\" d=\"M32 22l-6 8-18-6 8 12-6 4 14 2-2 14h20l-2-14 14-2-6-4 8-12-18 6z\"/><circle cx=\"25\" cy=\"16\" r=\"6\" fill=\"currentColor\"/><circle cx=\"39\" cy=\"16\" r=\"6\" fill=\"currentColor\"/><path fill=\"currentColor\" d=\"M19 14l-8 4 8 2zM45 14l8 4-8 2z\"/>", "Chaos": "<g stroke=\"currentColor\" stroke-width=\"4\" stroke-linecap=\"round\"><path d=\"M32 6v52M6 32h52M14 14l36 36M50 14L14 50\"/></g><circle cx=\"32\" cy=\"32\" r=\"6\" fill=\"currentColor\"/>", "Aeldari": "<path fill=\"currentColor\" d=\"M32 4l20 20-20 36L12 24z\"/><path d=\"M12 24h40M32 4v56\" style=\"stroke:var(--nen2)\" stroke-width=\"2\" fill=\"none\"/>", "Drukhari": "<path fill=\"currentColor\" d=\"M6 54l6-34 10 20 10-32 10 32 10-20 6 34z\"/>", "Orks": "<path fill=\"currentColor\" d=\"M8 28h48l-4 22H12z\"/><path fill=\"currentColor\" d=\"M14 28L8 6l10 14zM50 28l6-22-10 14z\"/><rect x=\"18\" y=\"36\" width=\"6\" height=\"9\" style=\"fill:var(--nen2)\"/><rect x=\"29\" y=\"36\" width=\"6\" height=\"9\" style=\"fill:var(--nen2)\"/><rect x=\"40\" y=\"36\" width=\"6\" height=\"9\" style=\"fill:var(--nen2)\"/>", "Necrons": "<ellipse cx=\"32\" cy=\"18\" rx=\"11\" ry=\"13\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\"/><path d=\"M32 31v30M16 42h32\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"round\"/>", "T’au Empire": "<path d=\"M50 14A26 26 0 1 0 54 36\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"5\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"32\" r=\"9\" fill=\"currentColor\"/>", "Tyranids": "<path fill=\"currentColor\" d=\"M8 8c20 4 30 20 26 52C28 40 20 24 8 8zM28 4c18 6 24 22 18 54C42 38 36 20 28 4zM46 10c10 6 14 18 10 40-4-16-6-26-10-40z\"/>", "Leagues of Votann": "<rect fill=\"currentColor\" x=\"28\" y=\"22\" width=\"8\" height=\"38\"/><rect fill=\"currentColor\" x=\"10\" y=\"8\" width=\"44\" height=\"18\" rx=\"3\"/>", "Genestealer Cults": "<circle cx=\"32\" cy=\"32\" r=\"9\" fill=\"currentColor\"/><path fill=\"currentColor\" d=\"M32 2l7 18H25zM32 62l7-18H25zM2 32l18-7v14zM62 32L44 25v14z\"/>"};
+function ico(n,c,z){var s=el("span","ic");var m=/^#(..)(..)(..)$/.exec(c);if(m&&(0.3*parseInt(m[1],16)+0.6*parseInt(m[2],16)+0.1*parseInt(m[3],16))<100){c="#"+[1,2,3].map(function(i){var v=parseInt(m[i],16);return ("0"+Math.round(v+(255-v)*0.5).toString(16)).slice(-2)}).join("")}
+ s.style.color=c;s.style.width=s.style.height=z+"px";s.innerHTML='<svg viewBox="0 0 64 64" width="100%" height="100%" aria-hidden="true">'+(ICO[n]||"")+"</svg>";
+ var sl=n.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""),ex=["png","jpg","webp"],k=0,im=new Image();
+ im.onload=function(){var r=im.naturalHeight/im.naturalWidth,t=r>1.4;s.innerHTML="";if(t){s.style.height=Math.round(z*3.6)+"px";s.style.width="auto"}else{s.style.width=s.style.height=Math.round(z*1.5)+"px"}im.style.cssText=t?"height:100%;width:auto;display:block":"width:100%;height:100%;object-fit:contain";im.alt=n;s.appendChild(im)};
+ im.onerror=function(){if(++k<ex.length)im.src="img/"+sl+"."+ex[k]};
+ im.src="img/"+sl+"."+ex[0];return s}
+function dau(n,c,t){var d=el("div","dau");d.append(ico(n,c,64),el("h3",null,t));return d}
+function dl(rows){var d=document.createElement("dl");rows.forEach(function(r){d.appendChild(el("dt",null,r[0]));d.appendChild(el("dd",null,r[1]))});return d}
+function picker(list,box,det,mk,show){
+ list.forEach(function(it,i){var b=document.createElement("button");b.type="button";b.className="the";b.setAttribute("aria-pressed","false");mk(b,it);
+  b.onclick=function(){box.querySelectorAll(".the").forEach(function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");det.replaceChildren();show(det,it);det.scrollIntoView({behavior:"smooth",block:"nearest"})};
+  box.appendChild(b)})}
+var ldai=document.getElementById("lg-dai");
+picker(LG,ldai,document.getElementById("lg-ct"),function(b,x){
+ var m=el("span","mau");m.style.background=x[4];b.append(m,ico(x[1],x[4],44),el("b",null,x[0]),el("span","ten",x[1]),el("small",x[5]==="p"?"p":"t",x[5]==="p"?"Phản loạn":"Trung thành"))},
+ function(d,x){d.append(dau(x[1],x[4],"Legion "+x[0]+": "+x[1]),dl([["Primarch",x[2]],["Thế giới quê hương",x[3]],["Trong Heresy",x[5]==="p"?"Phản loạn":"Trung thành"]]),el("p",null,x[6]))});
+document.getElementById("lg-trai").onclick=function(){ldai.scrollBy({left:-300,behavior:"smooth"})};
+document.getElementById("lg-phai").onclick=function(){ldai.scrollBy({left:300,behavior:"smooth"})};
+picker(PP,document.getElementById("pp-luoi"),document.getElementById("pp-ct"),function(b,x){
+ var m=el("span","mau");m.style.background=x[2];b.append(m,ico(x[0],x[2],44),el("b",null,x[0]),el("small",null,x[1]),el("span","mt",x[4]))},
+ function(d,x){d.append(dau(x[0],x[2],x[0]),dl([["Loại",x[1]],["Khu vực",x[3]]]),el("p",null,x[4]),el("p",null,x[5]))});
+var tabs=document.querySelectorAll("#tabhead [data-tab]"),trang=document.querySelector(".trang"),K=["lichsu","phephai","legion"];
+function show(n,keep){tabs.forEach(function(b){var on=b.dataset.tab===n;b.classList.toggle("on",on);b.setAttribute("aria-selected",on)});
+ K.forEach(function(k){document.getElementById("tab-"+k).hidden=k!==n});trang.classList.toggle("khac",n!=="lichsu");
+ try{sessionStorage.setItem("wh_tab",n)}catch(e){}if(!keep)window.scrollTo(0,0)}
+tabs.forEach(function(b){b.onclick=function(){show(b.dataset.tab)}});
+var sv=null;try{sv=sessionStorage.getItem("wh_tab")}catch(e){}show(K.indexOf(sv)>=0?sv:"lichsu",true);
+})();
+</script>
+</body>
+</html>

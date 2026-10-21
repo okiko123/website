@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Đăng nhập</title><style>
+:root{
+  --nen:#17150f; --nen2:#211e16; --vien:#3a3426;
+  --chu:#e6dfcb; --chu-mo:#a89f86; --dong:#c49a45; --gi:#a9472f;
+  --font-tieu-de:"Noto Serif",Georgia,serif;
+  --font-than:"Be Vietnam Pro",system-ui,sans-serif;
+}
+*{box-sizing:border-box}body{margin:0;background:var(--nen);color:var(--chu);font:16px/1.6 var(--font-than);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px}
+img{width:min(420px,80vw);height:auto;filter:invert(1);mix-blend-mode:screen;opacity:.9}
+form{width:min(340px,100%);display:flex;flex-direction:column;gap:10px}
+h2{margin:0;text-align:center;font-size:18px;color:var(--dong);letter-spacing:.04em}
+input{padding:10px 12px;background:var(--nen2);border:1px solid var(--vien);color:var(--chu);font:inherit}
+button{padding:10px;background:var(--dong);color:var(--nen);border:0;font:600 15px var(--font-than);cursor:pointer}
+.doi{background:none;color:var(--chu-mo);font-weight:400;text-decoration:underline}
+.loi{min-height:1.4em;color:var(--gi);font-size:14px;text-align:center}
+</style></head><body>
+<img alt="Aquila" src="data:image/png;base64,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">
+<form id="f" autocomplete="on"><h2 id="t">Đăng nhập để đọc nội dung</h2>
+<input id="u" placeholder="Tên đăng nhập" autocomplete="username" required>
+<input id="p" type="password" placeholder="Mật khẩu" autocomplete="current-password" required>
+<input id="p2" type="password" placeholder="Nhập lại mật khẩu" autocomplete="new-password" style="display:none">
+<div class="loi" id="e"></div><button type="submit" id="n">Đăng nhập</button>
+<button type="button" class="doi" id="d">Chưa có tài khoản? Đăng ký</button></form>
+<script>
+var reg=false,$=function(i){return document.getElementById(i)};
+function che(){$("t").textContent=reg?"Tạo tài khoản":"Đăng nhập để đọc nội dung";$("p2").style.display=reg?"":"none";$("p2").required=reg;$("n").textContent=reg?"Đăng ký":"Đăng nhập";$("d").textContent=reg?"Đã có tài khoản? Đăng nhập":"Chưa có tài khoản? Đăng ký";$("e").textContent=""}
+$("d").onclick=function(){reg=!reg;che()};
+$("f").onsubmit=async function(ev){ev.preventDefault();
+ if(reg&&$("p").value!==$("p2").value){$("e").textContent="Hai mật khẩu không khớp.";return}
+ try{var r=await fetch(reg?"/api/register":"/api/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:$("u").value,password:$("p").value})});
+ var j=await r.json();if(r.ok)location.reload();else $("e").textContent=j.error||"Có lỗi xảy ra."}catch(x){$("e").textContent="Không kết nối được máy chủ."}};
+</script></body></html>
